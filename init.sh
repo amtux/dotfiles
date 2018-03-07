@@ -1,13 +1,5 @@
 #!/bin/bash
 
-# inspired by wrotenwrites.com/a_modern_terminal_workflow_1/
-
-# pre reqs:
-# - install xcode and xcode command line tools: `xcode-select --install`
-# - install brew: `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-# - upgrade pip3 if needed: `pip3 install --upgrade pip3`
-# - echo result of `which zsh` to /etc/shells if not already there
-
 echo "> installing dependencies and apps"
 brew install zsh tmux neovim/neovim/neovim python3 ag
 brew tap caskroom/cask
