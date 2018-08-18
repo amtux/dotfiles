@@ -1,0 +1,106 @@
+" utf-8 encoding
+set encoding=utf8
+
+" noword wrapping unless for markdown files
+set nowrap
+autocmd FileType markdown setlocal wrap
+
+" indentation
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+
+" adjust system undo levels
+set undolevels=100
+
+" set backspace to delete
+set backspace=indent,eol,start
+
+" don't let Vim hide characters or make loud dings
+set conceallevel=1
+set noerrorbells
+
+" smart line numbers
+set number
+set relativenumber
+
+" use system clipboard on mac
+" set clipboard=unnamed
+
+" use search highlighting
+set hlsearch
+
+" vim-plug plugins
+call plug#begin('~/.vim/plugged')
+
+" dracula theme
+Plug 'dracula/vim'
+
+" fzf fuzzy finder plugin
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+
+" lightline plugin
+Plug 'itchyny/lightline.vim'
+
+" multiple cursor plugins
+Plug 'terryma/vim-multiple-cursors'
+
+" filesystem commands into vim plugin
+Plug 'tpope/vim-eunuch'
+
+" add brackets around stuff plugin
+Plug 'tpope/vim-surround'
+
+" lint plugin
+Plug 'w0rp/ale'
+
+" file ext specific editor config
+Plug 'editorconfig/editorconfig-vim'
+
+" nerdtree + nerdtree git plugin
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" git gutter plugin
+Plug 'airblade/vim-gitgutter'
+
+" git wrapper plugin
+Plug 'tpope/vim-fugitive'
+
+" dash plugin
+Plug 'rizzatti/dash.vim'
+
+call plug#end()
+
+" use dracula theme
+color dracula
+
+" for lightline theme
+" to show the airline theme
+set laststatus=2
+" dont duplicate UPDATE/EDIT/ETC entries at the bottom
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'seoul256',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+
+" nerdtree settings
+" Ctrl + o to toggle it anytime
+map <C-o> :NERDTreeToggle<CR>
+" only open when loading a dir
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+" exit if the last buffer is nerdtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
