@@ -28,5 +28,6 @@ source ~/.zsh_plugins.sh
 eval "$(rbenv init -)"
 
 alias l="exa -l --git"
+alias ls="exa -l --git"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

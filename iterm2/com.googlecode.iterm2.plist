@@ -232,7 +232,7 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/dotfiles/iterm2</string>
+	<string>~/Documents</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
 	<key>NSNavPanelExpandedSizeForSaveMode</key>
@@ -273,11 +273,11 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>532 1818 620 392 -438 1050 2560 1417 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>-3571 136 599 459 -3840 0 1920 1177 </string>
+	<string>-389 1232 606 469 -789 1050 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>304 1615 918 394 -789 1050 2560 1417 </string>
+	<string>304 1523 796 486 -789 1050 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-789 1050 2560 1417 -789 1050 2560 1417 </string>
+	<string>-3840 0 2560 1177 -3840 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>-438 1073 2560 1394 -438 1050 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -931,6 +931,8 @@
 	<integer>0</integer>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
+	<key>NoSyncSaveDocumentAsPathSet_saveDocumentAs:</key>
+	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>542134699.91814196</real>
 	<key>PMPrintingExpandedStateForPrint2</key>
@@ -983,11 +985,11 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-08-17T21:52:45Z</date>
+	<date>2018-08-31T19:10:32Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>TabStyle</key>
 	<integer>1</integer>
 	<key>WordCharacters</key>

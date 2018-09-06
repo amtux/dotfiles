@@ -31,11 +31,6 @@ brew cask install font-fira-code
 echo "> setting up iterm"
 brew cask install iterm2
 
-echo "> setting up fzf"
-# install fzf
-brew install fzf
-/usr/local/opt/fzf/install --no-fish --no-bash --all
-
 # install zsh
 echo "> setting up zsh"
 brew install zsh
@@ -46,6 +41,11 @@ touch ~/.hushlogin
 chsh -s $(which zsh)
 rm -rf ~/.zshrc
 ln -s $PWD/$RUN_PATH/zsh/zshrc ~/.zshrc
+
+echo "> setting up fzf"
+# install fzf
+brew install fzf
+/usr/local/opt/fzf/install --no-fish --no-bash --all
 
 # install tmuxtmux
 echo "> setting up tmux"

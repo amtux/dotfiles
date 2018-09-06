@@ -17,6 +17,9 @@ set expandtab
 " adjust system undo levels
 set undolevels=100
 
+" kill lag when switching modes
+set ttimeoutlen=0
+
 " set backspace to delete
 set backspace=indent,eol,start
 
