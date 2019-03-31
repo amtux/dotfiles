@@ -1,12 +1,21 @@
 " utf-8 encoding
 set encoding=utf8
 
-" noword wrapping unless for markdown files
-set nowrap
-autocmd FileType markdown setlocal wrap
+" just in case this isnt set
+set nocompatible
 
-" indentation
+" set , as leader
+let mapleader=","
+
+" show commands being typed at the bottom
+set showcmd
+
+" noword wrapping unless for markdown files "set nowrap
+"autocmd FileType markdown setlocal wrap
+
+" indentation - overwritten by editorconfig
 filetype plugin indent on
+
 " show existing tab with 4 spaces width
 set tabstop=4
 " when indenting with '>', use 4 spaces width
@@ -31,8 +40,43 @@ set noerrorbells
 set number
 set relativenumber
 
+" left side gutter always visible
+set signcolumn=yes
+
+" makes a small difference on color contrast
+set termguicolors
+highlight Normal ctermbg=black ctermfg=white
+let g:gruvbox_contrast_dark='medium'
+
 " use system clipboard on mac
 " set clipboard=unnamed
+" use F1 copy to global clipboard, then cmd+v to paste
+nmap <F1> :.w !pbcopy<CR><CR>
+vmap <F1> :w !pbcopy<CR><CR>
+
+" work with buffers more easily - hidde,  Tab & S-tab shortcuts
+set hidden
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+
+" working with splits better
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+set splitbelow
+set splitright
+
+" keep cursor centered (for large files)
+:nnoremap j jzz
+:nnoremap k kzz
+:nnoremap <Down> jzz
+:nnoremap <Up> kzz
+:nnoremap G Gzz
+:nnoremap # #zz
+
+" update refresh time for faster git gutter updates
+set updatetime=100
 
 " use search highlighting
 set hlsearch
@@ -40,15 +84,24 @@ set hlsearch
 " vim-plug plugins
 call plug#begin('~/.vim/plugged')
 
-" dracula theme
-Plug 'dracula/vim'
+
+" TMUX stuff
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'benmills/vimux'
+
+" install gruvbox
+Plug 'morhetz/gruvbox'
 
 " fzf fuzzy finder plugin
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
-" lightline plugin
+Plug 'maralla/completor.vim'
+
+" lightline plugin + bufferline for it
 Plug 'itchyny/lightline.vim'
+Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 
 " multiple cursor plugins
 Plug 'terryma/vim-multiple-cursors'
@@ -56,11 +109,24 @@ Plug 'terryma/vim-multiple-cursors'
 " filesystem commands into vim plugin
 Plug 'tpope/vim-eunuch'
 
+"narrow region
+Plug 'chrisbra/NrrwRgn'
+" :NR - open selection in a new window
+" :NW - open current visual window in a new window
+" :NRP - mark a selection so you can open multiple parts of a file
+" :NRM - after using NRP, run this so you can open those parts!
+
 " add brackets around stuff plugin
 Plug 'tpope/vim-surround'
 
 " lint plugin
 Plug 'w0rp/ale'
+
+" language specific
+Plug 'fatih/vim-go'
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'digitaltoad/vim-pug'
 
 " file ext specific editor config
 Plug 'editorconfig/editorconfig-vim'
@@ -72,32 +138,58 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " git gutter plugin
 Plug 'airblade/vim-gitgutter'
 
-" git wrapper plugin
+" git plugin
 Plug 'tpope/vim-fugitive'
+
+" commenting plugin
+Plug 'scrooloose/nerdcommenter'
 
 " dash plugin
 Plug 'rizzatti/dash.vim'
 
+" coffeescript support
+Plug 'kchmck/vim-coffee-script'
+
+" vim org mode
+Plug 'jceb/vim-orgmode'
+
+" repeat
+Plug 'tpope/vim-repeat'
+
+Plug 'rstacruz/vim-closer'
+
+Plug 'junegunn/vim-easy-align'
+
+"Plug 'jiangmiao/auto-pairs'
+" icons for files
+"Plug 'ryanoasis/vim-devicons'
+
 call plug#end()
 
-" use dracula theme
-color dracula
+" use gruvbox theme
+let g:gruvbox_italic=1
+colorscheme gruvbox
 
 " for lightline theme
 " to show the airline theme
 set laststatus=2
 " dont duplicate UPDATE/EDIT/ETC entries at the bottom
 set noshowmode
-let g:lightline = {
-      \ 'colorscheme': 'seoul256',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
+
+" setup lightline + integrate bufferline
+let g:lightline = {}
+"let g:lightline.colorscheme = 'seoul256'
+let g:lightline.colorscheme = 'gruvbox'
+let g:lightline.active = {
+      \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ }
+let g:lightline.component_function = { 'gitbranch': 'fugitive#head' }
+let g:lightline.tabline          = {'left': [['buffers']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
+
+" show bufferline
+set showtabline=2
 
 " nerdtree settings
 " Ctrl + o to toggle it anytime
@@ -107,3 +199,34 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 " exit if the last buffer is nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" js linting with ale
+let g:ale_fixers = {
+ \ 'javascript': ['eslint'],
+ \ 'typescript': ['tslint']
+ \ }
+"let g:ale_fix_on_save = 1
+" quickly navigate between lint errors
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <leader>ss :ALEFix<CR>
+
+" ctrl+p to fuzzy search files (gitignored)
+nnoremap <c-p> :GFiles<cr>
+
+" format json using python
+com! FormatJSON %!python3 -m json.tool
+
+" setup easy align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" VIMUX
+" Prompt for a command to run
+map <Leader>vp :VimuxPromptCommand<CR>
+
+" Run last command executed by VimuxRunCommand
+map <Leader>vl :VimuxRunLastCommand<CR>

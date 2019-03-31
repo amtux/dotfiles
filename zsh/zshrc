@@ -1,5 +1,11 @@
-precmd() { print "" }
+export TERM="xterm-256color"
 
+# precmd() { print "" }
+
+# powerline stuff
+POWERLEVEL9K_DISABLE_RPROMPT=true
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
 # set history
 export HISTFILE=~/.zhistory
 export HISTSIZE=10000
@@ -7,6 +13,7 @@ export SAVEHIST=10000
 setopt append_history
 setopt extended_history
 setopt inc_append_history
+setopt interactivecomments
 
 # Auto CD
 setopt auto_cd
@@ -31,3 +38,60 @@ alias l="exa -l --git"
 alias ls="exa -l --git"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+
+# git aliases etc
+source "/Users/amanuppal/dotfiles/zsh/git.zsh"
+
+
+#------------------------ handle nvm stuff --------------------------
+export NVM_DIR="$HOME/.nvm"
+#nvm_load () {
+  #[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  #[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+#}
+#alias node='unalias nvm; unalias node; unalias npm; nvm_load; node $@'
+#alias npm='unalias nvm; unalias node; unalias npm; nvm_load; npm $@'
+#alias nvm='unalias nvm; unalias node; unalias npm; nvm_load; nvm $@'
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+
+autoload -U add-zsh-hook
+load-nvmrc() {
+  #printf "node version is "
+  #nvm version
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+#--------------------------------------------------------------------
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/amanuppal/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/amanuppal/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/amanuppal/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/amanuppal/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# added by travis gem
+[ -f /Users/amanuppal/.travis/travis.sh ] && source /Users/amanuppal/.travis/travis.sh
+
+clear_scrollback() {
+  printf '\033[2J\033[3J\033[1;1H'
+}
+
+# start tmux
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  exec tmux
+fi

@@ -1,15 +1,12 @@
 # dotfiles
 
-bootstrap setup for iterm / zsh / tmux / vim on macos and linux
+macos setup for dev with alacritty, tmux, vim
 
+- Install brew first
 
-Pre-requisites to install script:
-- install xcode and xcode command line tools: `xcode-select --install`
-- install brew: `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+- Run script
 
-```sh
-$ git clone https://github.com/amtux/dotfiles.git ~/dotfiles
-$ cd ~/dotfiles
-$ ./macos-install.sh # for macos
-$ ./linux-install.sh # for debian+forks / fedora
-```
+    ```sh
+    git clone https://github.com/amtux/dotfiles.git ~/dotfiles
+    ./macos-install.sh
+    ```

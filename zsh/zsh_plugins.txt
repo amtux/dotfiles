@@ -1,9 +1,19 @@
-mafredri/zsh-async
+# traverse to a previously visited dir with unique symbol match
 rupa/z
+# go back multiple directories with unqiue symbol match
 Tarrasch/zsh-bd
+# zsh completions
 zsh-users/zsh-completions
-zsh-users/zsh-autosuggestions                                                                                                                                 
+# zsh autosuggestions
+zsh-users/zsh-autosuggestions
+# remind me of aliases for the commands i type out fully (helps with git)
+djui/alias-tips
+# async some zsh ops
+mafredri/zsh-async
+# show me port info
+caarlos0/ports kind:path
 
-sindresorhus/pure
+# apparently these should be last
+bhilburn/powerlevel9k
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-history-substring-search

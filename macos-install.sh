@@ -8,31 +8,31 @@ fi
 
 RUN_PATH="`dirname \"$0\"`"
 
-echo "> setting up ruby env"
-brew install rbenv
+# install font
+echo "> font"
+brew tap homebrew/cask-fonts
+brew cask install font-fantasque-sans-mono
 
-echo "> setting up exa - better 'ls' tool"
-brew install exa
 
-# install vim
-echo "> setting up vim"
+echo "> vim"
 brew install vim
 rm -rf ~/.vim
 ln -s $PWD/$RUN_PATH/vim ~/.vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-vim +PlugInstall +qall
+#vim +PlugInstall +qall
 
-# install fira font
-echo ">setting up fonts"
-brew tap caskroom/fonts
-brew cask install font-fira-code
 
-# install iterm2
-echo "> setting up iterm"
-brew cask install iterm2
+echo "> exa, rbenv"
+brew install exa rbenv
 
-# install zsh
-echo "> setting up zsh"
+
+echo "> tmux"
+brew install tmux
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+
+
+echo "> zsh" 
 brew install zsh
 brew install getantibody/tap/antibody
 # zsh plugins gen statically using antibody
@@ -42,18 +42,19 @@ chsh -s $(which zsh)
 rm -rf ~/.zshrc
 ln -s $PWD/$RUN_PATH/zsh/zshrc ~/.zshrc
 
+
 echo "> setting up fzf"
 # install fzf
 brew install fzf
 /usr/local/opt/fzf/install --no-fish --no-bash --all
 
-# install tmuxtmux
-echo "> setting up tmux"
-brew install tmux
 
 echo "> finishing up with some cool utils"
 brew install jq \
              htop \
              watch
 
+
 echo "> done"
+echo "configure vim with: `vim +PlugInstall +qall`"
+echo "configure tmux with `prefix + I`
