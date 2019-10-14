@@ -8,39 +8,47 @@ fi
 
 RUN_PATH="`dirname \"$0\"`"
 
+
+echo "> start with some cool utils"
+brew install jq \
+             htop \
+             watch \
+             exa \
+             ripgrep
+
+
 # install font
 echo "> font"
 brew tap homebrew/cask-fonts
-brew cask install font-fantasque-sans-mono
+brew cask install font-fantasquesansmono-nerd-font
 
 
-echo "> vim"
-brew install vim
-rm -rf ~/.vim
-ln -s $PWD/$RUN_PATH/vim ~/.vim
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-#vim +PlugInstall +qall
-
-
-echo "> exa, rbenv"
-brew install exa rbenv
-
-
-echo "> tmux"
-brew install tmux
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
+echo "> alacritty"
+ln -s $PWD/$RUN_PATH/alacritty ~/.config/alacritty
+brew cask install alacritty
 
 
 echo "> zsh" 
 brew install zsh
 brew install getantibody/tap/antibody
-# zsh plugins gen statically using antibody
-antibody bundle < ./zsh/zsh_plugins.txt > ~/.zsh_plugins.sh
+antibody bundle < ./zsh/zsh-plugins.txt > ~/.zsh-plugins.sh
 touch ~/.hushlogin
-chsh -s $(which zsh)
+echo "manually do chsh -s $(which zsh)"
 rm -rf ~/.zshrc
 ln -s $PWD/$RUN_PATH/zsh/zshrc ~/.zshrc
+
+
+echo "> tmux"
+ln -s $PWD/$RUN_PATH/tmux/.tmux.conf ~/.tmux.conf
+brew install tmux
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+
+echo "> nvim"
+ln -s $PWD/$RUN_PATH/nvim ~/.config/nvim
+brew install neovim
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 
 echo "> setting up fzf"
@@ -49,12 +57,23 @@ brew install fzf
 /usr/local/opt/fzf/install --no-fish --no-bash --all
 
 
-echo "> finishing up with some cool utils"
-brew install jq \
-             htop \
-             watch
+echo "> diff-so-fancy"
+brew install diff-so-fancy
+git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+git config --global color.ui true
+
+git config --global color.diff-highlight.oldNormal    "red bold"
+git config --global color.diff-highlight.oldHighlight "red bold 52"
+git config --global color.diff-highlight.newNormal    "green bold"
+git config --global color.diff-highlight.newHighlight "green bold 22"
+
+git config --global color.diff.meta       "11"
+git config --global color.diff.frag       "magenta bold"
+git config --global color.diff.commit     "yellow bold"
+git config --global color.diff.old        "red bold"
+git config --global color.diff.new        "green bold"
+git config --global color.diff.whitespace "red reverse"
 
 
+chsh -s $(which zsh) || echo "failed to switch to zsh - DIY"
 echo "> done"
-echo "configure vim with: `vim +PlugInstall +qall`"
-echo "configure tmux with `prefix + I`
