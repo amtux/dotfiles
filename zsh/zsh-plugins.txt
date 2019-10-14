@@ -12,6 +12,12 @@ djui/alias-tips
 mafredri/zsh-async
 # show me port info
 caarlos0/ports kind:path
+# get docker autocompletion
+docker/cli path:contrib/completion/zsh kind:fpath
+docker/compose path:contrib/completion/zsh/_docker-compose kind:fpath
+
+# abbreviate path
+robbyrussell/oh-my-zsh path:plugins/shrink-path
 
 # apparently these should be last
 bhilburn/powerlevel9k

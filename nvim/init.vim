@@ -10,12 +10,11 @@ let mapleader=","
 " show commands being typed at the bottom
 set showcmd
 
-" noword wrapping unless for markdown files "set nowrap
-"autocmd FileType markdown setlocal wrap
+" disable cursor changes
+set guicursor=
 
 " indentation - overwritten by editorconfig
 filetype plugin indent on
-
 " show existing tab with 4 spaces width
 set tabstop=4
 " when indenting with '>', use 4 spaces width
@@ -23,14 +22,41 @@ set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
 
-" adjust system undo levels
-set undolevels=100
-
 " kill lag when switching modes
 set ttimeoutlen=0
 
 " set backspace to delete
 set backspace=indent,eol,start
+
+" set some defaults for coc to work better
+set updatetime=300
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+set foldmethod=indent   " sets default fold method to indent
+set foldlevelstart=20
 
 " don't let Vim hide characters or make loud dings
 set conceallevel=1
@@ -54,7 +80,7 @@ let g:gruvbox_contrast_dark='medium'
 nmap <F1> :.w !pbcopy<CR><CR>
 vmap <F1> :w !pbcopy<CR><CR>
 
-" work with buffers more easily - hidde,  Tab & S-tab shortcuts
+" work with buffers more easily - hidden, Tab & S-tab shortcuts
 set hidden
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
@@ -84,7 +110,6 @@ set hlsearch
 " vim-plug plugins
 call plug#begin('~/.vim/plugged')
 
-
 " TMUX stuff
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
@@ -96,15 +121,10 @@ Plug 'morhetz/gruvbox'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
-" Plug 'maralla/completor.vim'
-
 " lightline plugin + bufferline for it
 Plug 'itchyny/lightline.vim'
 Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'mengelbrecht/lightline-bufferline'
-
-" multiple cursor plugins
-Plug 'terryma/vim-multiple-cursors'
 
 " filesystem commands into vim plugin
 Plug 'tpope/vim-eunuch'
@@ -119,15 +139,14 @@ Plug 'chrisbra/NrrwRgn'
 " add brackets around stuff plugin
 Plug 'tpope/vim-surround'
 
-" lint plugin
-Plug 'w0rp/ale'
-
 " language specific
-Plug 'fatih/vim-go'
-Plug 'pangloss/vim-javascript'
+"Plug 'fatih/vim-go'
+"Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'digitaltoad/vim-pug'
 Plug 'posva/vim-vue'
+"Plug 'kchmck/vim-coffee-script'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
 " file ext specific editor config
 Plug 'editorconfig/editorconfig-vim'
@@ -148,27 +167,11 @@ Plug 'scrooloose/nerdcommenter'
 " dash plugin
 Plug 'rizzatti/dash.vim'
 
-" coffeescript support
-Plug 'kchmck/vim-coffee-script'
-
-" vim org mode
-Plug 'jceb/vim-orgmode'
-Plug 'tpope/vim-speeddating'
-
 " repeat
 Plug 'tpope/vim-repeat'
 
-Plug 'rstacruz/vim-closer'
-
-Plug 'junegunn/vim-easy-align'
-
-Plug 'rhysd/vim-grammarous'
-
-Plug 'shime/vim-livedown'
-
-"Plug 'jiangmiao/auto-pairs'
-" icons for files
-"Plug 'ryanoasis/vim-devicons'
+" markdown preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 call plug#end()
 
@@ -176,7 +179,6 @@ call plug#end()
 let g:gruvbox_italic=1
 colorscheme gruvbox
 
-" for lightline theme
 " to show the airline theme
 set laststatus=2
 " dont duplicate UPDATE/EDIT/ETC entries at the bottom
@@ -187,9 +189,9 @@ let g:lightline = {}
 "let g:lightline.colorscheme = 'seoul256'
 let g:lightline.colorscheme = 'gruvbox'
 let g:lightline.active = {
-      \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \   'left': [ [ 'mode', 'paste' ], [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ }
-let g:lightline.component_function = { 'gitbranch': 'fugitive#head' }
+let g:lightline.component_function = { 'gitbranch': 'fugitive#head', 'cocstatus': 'coc#status', 'filename': 'LightlineFilename' }
 let g:lightline.tabline          = {'left': [['buffers']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type   = {'buffers': 'tabsel'}
@@ -205,17 +207,6 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 " exit if the last buffer is nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" js linting with ale
-let g:ale_fixers = {
- \ 'javascript': ['eslint'],
- \ 'typescript': ['tslint']
- \ }
-"let g:ale_fix_on_save = 1
-" quickly navigate between lint errors
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <leader>ss :ALEFix<CR>
 
 " ctrl+p to fuzzy search files (gitignored)
 nnoremap <c-p> :GFiles<cr>
