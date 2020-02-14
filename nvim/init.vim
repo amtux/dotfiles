@@ -28,6 +28,9 @@ set ttimeoutlen=0
 " set backspace to delete
 set backspace=indent,eol,start
 
+" highlight line when in insert mode
+autocmd InsertEnter,InsertLeave * set cul!
+
 " set some defaults for coc to work better
 set updatetime=300
 inoremap <silent><expr> <TAB>
@@ -69,12 +72,6 @@ set relativenumber
 " left side gutter always visible
 set signcolumn=yes
 
-" makes a small difference on color contrast
-set termguicolors
-highlight Normal ctermbg=black ctermfg=white
-let g:gruvbox_contrast_dark='medium'
-
-" use system clipboard on mac
 " set clipboard=unnamed
 " use F1 copy to global clipboard, then cmd+v to paste
 nmap <F1> :.w !pbcopy<CR><CR>
@@ -114,8 +111,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 
-" install gruvbox
-Plug 'morhetz/gruvbox'
+" install theme
+Plug 'joshdick/onedark.vim'
 
 " fzf fuzzy finder plugin
 Plug '/usr/local/opt/fzf'
@@ -123,7 +120,6 @@ Plug 'junegunn/fzf.vim'
 
 " lightline plugin + bufferline for it
 Plug 'itchyny/lightline.vim'
-Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 
 " filesystem commands into vim plugin
@@ -140,13 +136,12 @@ Plug 'chrisbra/NrrwRgn'
 Plug 'tpope/vim-surround'
 
 " language specific
-"Plug 'fatih/vim-go'
-"Plug 'pangloss/vim-javascript'
+Plug 'fatih/vim-go'
 Plug 'leafgarland/typescript-vim'
 Plug 'digitaltoad/vim-pug'
 Plug 'posva/vim-vue'
 "Plug 'kchmck/vim-coffee-script'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " file ext specific editor config
 Plug 'editorconfig/editorconfig-vim'
@@ -171,13 +166,12 @@ Plug 'rizzatti/dash.vim'
 Plug 'tpope/vim-repeat'
 
 " markdown preview
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+
 
 call plug#end()
 
-" use gruvbox theme
-let g:gruvbox_italic=1
-colorscheme gruvbox
+colorscheme onedark
 
 " to show the airline theme
 set laststatus=2
@@ -187,21 +181,24 @@ set noshowmode
 " setup lightline + integrate bufferline
 let g:lightline = {}
 "let g:lightline.colorscheme = 'seoul256'
-let g:lightline.colorscheme = 'gruvbox'
+let g:lightline.colorscheme = 'onedark'
 let g:lightline.active = {
-      \   'left': [ [ 'mode', 'paste' ], [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ }
+    \   'left': [ [ 'mode', 'paste' ], [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+    \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileencoding', 'filetype' ] ]
+    \ }
 let g:lightline.component_function = { 'gitbranch': 'fugitive#head', 'cocstatus': 'coc#status', 'filename': 'LightlineFilename' }
 let g:lightline.tabline          = {'left': [['buffers']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type   = {'buffers': 'tabsel'}
+let g:lightline.separator = { 'left': "\ue0b0", 'right': "\ue0b2" }
+let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3" }
 
 " show bufferline
 set showtabline=2
 
 " nerdtree settings
 " Ctrl + o to toggle it anytime
-map <C-o> :NERDTreeToggle<CR>
+"map <C-o> :NERDTreeToggle<CR>
 " only open when loading a dir
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
@@ -228,3 +225,4 @@ map <Leader>vp :VimuxPromptCommand<CR>
 map <Leader>vl :VimuxRunLastCommand<CR>
 " Inspect runner pane
 map <Leader>vi :VimuxInspectRunner<CR>
+
