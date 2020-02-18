@@ -20,16 +20,16 @@ brew install jq \
 # install font
 echo "> font"
 brew tap homebrew/cask-fonts
-brew cask install font-fantasquesansmono-nerd-font
+brew cask install font-iosevka-nerd-font
 
 
 echo "> alacritty"
+mkdir -p ~/.config
 ln -s $PWD/$RUN_PATH/alacritty ~/.config/alacritty
 brew cask install alacritty
 
 
 echo "> zsh" 
-brew install zsh
 brew install getantibody/tap/antibody
 antibody bundle < ./zsh/zsh-plugins.txt > ~/.zsh-plugins.sh
 touch ~/.hushlogin
