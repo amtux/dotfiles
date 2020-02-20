@@ -11,11 +11,22 @@ RUN_PATH="`dirname \"$0\"`"
 
 echo "> start with some cool utils"
 brew install jq \
-             htop \
-             watch \
-             exa \
-             ripgrep
+  htop \
+  watch \
+  exa \
+  ripgrep \
+  gnupg \
+  imagemagick \
+  golang \
+  helm \
+  nodejs \
+  gnu-sed \
+  kubectx
 
+brew cask install google-cloud-sdk \
+  discord
+
+gcloud components install --quiet kubectl
 
 # install font
 echo "> font"
