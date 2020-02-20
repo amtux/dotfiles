@@ -1,3 +1,8 @@
+#!/bin/sh
+
+# credit to this medium article to help make mac suck less
+# https://medium.com/@echohack/guide-to-make-your-mac-suck-less-2017-88a57563aac7
+
 setu -eux
 
 echo "Use 24-hour time. Use the format EEE MMM d  H:mm:ss"
