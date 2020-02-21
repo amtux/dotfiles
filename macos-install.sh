@@ -9,7 +9,7 @@ fi
 RUN_PATH="`dirname \"$0\"`"
 
 
-echo "> start with some cool utils"
+echo "> start with some cool utils and apps"
 brew install jq \
   htop \
   watch \
@@ -23,8 +23,11 @@ brew install jq \
   gnu-sed \
   kubectx
 
+brew tap homebrew/cask-versions
+
 brew cask install google-cloud-sdk \
-  discord
+  discord \
+  firefox-developer-edition
 
 gcloud components install --quiet kubectl
 
