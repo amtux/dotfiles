@@ -23,7 +23,7 @@ echo "Disable press-and-hold for keys in favor of key repeat."
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 echo "Set a fast keyboard repeat rate, after a good initial delay."
-defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 20
 
 echo "Disable auto-correct."

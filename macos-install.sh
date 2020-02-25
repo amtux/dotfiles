@@ -9,6 +9,13 @@ fi
 RUN_PATH="`dirname \"$0\"`"
 
 
+#echo ">upgrade existing brew packaages"
+#brew update || brew update
+#brew upgrade
+
+echo "> make sure xcode is upto date"
+xcode-select --install
+
 echo "> start with some cool utils and apps"
 brew install jq \
   htop \
@@ -21,12 +28,19 @@ brew install jq \
   helm \
   nodejs \
   gnu-sed \
+  gcc \
+  telnet \
+  docker-compose \
   kubectx
 
 brew tap homebrew/cask-versions
 
 brew cask install google-cloud-sdk \
   discord \
+  vlc \
+  windscribe \
+  1password \
+  docker \
   firefox-developer-edition
 
 gcloud components install --quiet kubectl
