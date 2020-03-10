@@ -41,6 +41,7 @@ brew cask install google-cloud-sdk \
   windscribe \
   1password \
   docker \
+  balenaetcher \
   firefox-developer-edition
 
 gcloud components install --quiet kubectl
