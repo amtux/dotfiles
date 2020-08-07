@@ -1,12 +1,10 @@
 # traverse to a previously visited dir with unique symbol match
 rupa/z
-# go back multiple directories with unqiue symbol match
-Tarrasch/zsh-bd
 # zsh completions
 zsh-users/zsh-completions
 # zsh autosuggestions
 zsh-users/zsh-autosuggestions
-# remind me of aliases for the commands i type out fully (helps with git)
+# remind me of aliases for the commands I type out fully (helps with git)
 djui/alias-tips
 # async some zsh ops
 mafredri/zsh-async
