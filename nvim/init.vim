@@ -4,8 +4,8 @@ set encoding=utf8
 " just in case this isnt set
 set nocompatible
 
-" set , as leader
-let mapleader=","
+" set <space> as leader
+let mapleader=" "
 
 " show commands being typed at the bottom
 set showcmd
@@ -31,37 +31,14 @@ set backspace=indent,eol,start
 " highlight line when in insert mode
 autocmd InsertEnter,InsertLeave * set cul!
 
-" set some defaults for coc to work better
-set updatetime=300
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+"set updatetime=300
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-set foldmethod=indent   " sets default fold method to indent
+" better folding
+set foldmethod=indent
 set foldlevelstart=20
 
-" don't let Vim hide characters or make loud dings
+" don't let vim hide characters or make loud dings
 set conceallevel=1
 set noerrorbells
 
@@ -72,10 +49,23 @@ set relativenumber
 " left side gutter always visible
 set signcolumn=yes
 
-" set clipboard=unnamed
+" uncomment the following mapping if youre using macos
 " use F1 copy to global clipboard, then cmd+v to paste
-nmap <F1> :.w !pbcopy<CR><CR>
-vmap <F1> :w !pbcopy<CR><CR>
+" nmap <F1> :.w !pbcopy<CR><CR>
+" vmap <F1> :w !pbcopy<CR><CR>
+
+" copy paste for linux
+" copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 " work with buffers more easily - hidden, Tab & S-tab shortcuts
 set hidden
@@ -107,10 +97,6 @@ set hlsearch
 " vim-plug plugins
 call plug#begin('~/.vim/plugged')
 
-" TMUX stuff
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'benmills/vimux'
-
 " install theme
 Plug 'joshdick/onedark.vim'
 
@@ -137,11 +123,6 @@ Plug 'tpope/vim-surround'
 
 " language specific
 Plug 'fatih/vim-go'
-Plug 'leafgarland/typescript-vim'
-Plug 'digitaltoad/vim-pug'
-Plug 'posva/vim-vue'
-"Plug 'kchmck/vim-coffee-script'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " file ext specific editor config
 Plug 'editorconfig/editorconfig-vim'
@@ -159,18 +140,8 @@ Plug 'tpope/vim-fugitive'
 " commenting plugin
 Plug 'scrooloose/nerdcommenter'
 
-" dash plugin
-Plug 'rizzatti/dash.vim'
-
 " repeat
 Plug 'tpope/vim-repeat'
-
-" markdown preview
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-
-" notes
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-notes'
 
 call plug#end()
 
@@ -186,10 +157,10 @@ let g:lightline = {}
 "let g:lightline.colorscheme = 'seoul256'
 let g:lightline.colorscheme = 'onedark'
 let g:lightline.active = {
-    \   'left': [ [ 'mode', 'paste' ], [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+    \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
     \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileencoding', 'filetype' ] ]
     \ }
-let g:lightline.component_function = { 'gitbranch': 'fugitive#head', 'cocstatus': 'coc#status', 'filename': 'LightlineFilename' }
+let g:lightline.component_function = { 'gitbranch': 'fugitive#head', 'filename': 'LightlineFilename' }
 let g:lightline.tabline          = {'left': [['buffers']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type   = {'buffers': 'tabsel'}
@@ -213,19 +184,3 @@ nnoremap <c-p> :GFiles<cr>
 
 " format json using python
 com! FormatJSON %!python3 -m json.tool
-
-" setup easy align
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-" VIMUX
-" Prompt for a command to run
-map <Leader>vp :VimuxPromptCommand<CR>
-" Run last command executed by VimuxRunCommand
-map <Leader>vl :VimuxRunLastCommand<CR>
-" Inspect runner pane
-map <Leader>vi :VimuxInspectRunner<CR>
-
