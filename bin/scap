@@ -8,6 +8,7 @@ loc+="$(date +'%Y%m%d_%H%M%S').png"
 
 msg="wrote screenshot to: "
 
+opt=""
 if [[ " $@ " =~ "--selection" ]]; then
   opt="-s"
 fi
