@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eux
+
+
+loc+="~/Pictures/screenshots/"
+mkdir -p $loc
+loc+="$(date +'%Y%m%d_%H%M%S').png"
+
+msg="wrote screenshot to: "
+
+if [[ " $@ " =~ "--selection" ]]; then
+  opt="-s"
+fi
+
+if [[ " $@ " =~ "--clipboard" ]]; then
+  msg+="clipboard"
+  maim $opt -m 1 --format png /dev/stdout | xclip -selection clipboard -t image/png
+else
+  msg+=$loc
+  maim $opt --format png $loc
+fi
+notify-send "$msg"

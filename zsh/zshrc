@@ -20,6 +20,7 @@ setopt extended_history inc_append_history sharehistory
 # vi mode + no delay when switching
 bindkey -v
 KEYTIMEOUT=1
+bindkey '^R' history-incremental-search-backward
 
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/amtux/.zshrc'
@@ -43,10 +44,13 @@ alias vim='nvim'
 alias v='nvim'
 alias k='kubectl'
 alias i='istioctl'
+alias d='docker'
 alias p='sudo pacman'
+alias kctx='kubectx'
 alias sshot='scrot -q 100 ~/Pictures/screenshots/%Y%m%d_%H%M%S.png'
 alias ls='exa -l --git'
 alias l='exa -la --git'
+alias sudo='sudo '
 
 
 # load git aliases

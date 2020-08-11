@@ -1,0 +1,17 @@
+#!/bin/sh
+set -x
+
+# set monitors up correctly
+xrandr --output eDP --auto --primary
+#xrandr --output DisplayPort-0 --auto --above eDP --noprimary
+xrandr --output HDMI-A-0 --auto --above eDP --noprimary
+
+# set polybar on the new displays
+~/.config/polybar/launch.sh &
+
+# set up wallpaper correctly
+feh --bg-fill ~/Pictures/bg &
+
+# reload conky
+pkill conky
+start_conky_maia

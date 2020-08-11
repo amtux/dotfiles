@@ -124,6 +124,8 @@ Plug 'tpope/vim-surround'
 " language specific
 Plug 'fatih/vim-go'
 
+Plug 'neovim/nvim-lsp'
+
 " file ext specific editor config
 Plug 'editorconfig/editorconfig-vim'
 
