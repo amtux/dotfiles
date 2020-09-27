@@ -2,7 +2,7 @@
 set -eux
 
 
-loc+="~/Pictures/screenshots/"
+loc+="$HOME/Pictures/screenshots/"
 mkdir -p $loc
 loc+="$(date +'%Y%m%d_%H%M%S').png"
 

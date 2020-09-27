@@ -1,10 +1,20 @@
 #!/bin/sh
-set -x
+set -ex
+
+if [ "$1" == "reset" ]; then
+  xrandr -s 0
+fi
+declare -a positions=("--above" "--left-of")
+iter=0
+for m in $(xrandr --query | grep " connected" | cut -d" " -f1 | grep -v "eDP"); do
+  xrandr --output $m --auto ${positions[${iter}]} eDP --noprimary
+  iter=$(expr $iter + 1)
+done
 
 # set monitors up correctly
-xrandr --output eDP --auto --primary
+#xrandr --output eDP --auto --primary
 #xrandr --output DisplayPort-0 --auto --above eDP --noprimary
-xrandr --output HDMI-A-0 --auto --above eDP --noprimary
+#xrandr --output HDMI-A-0 --auto --above eDP --noprimary
 
 # set polybar on the new displays
 ~/.config/polybar/launch.sh &
