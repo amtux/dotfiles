@@ -4,6 +4,7 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|k|i|istioctl'
 
 # essential stuff tweaked from zsh-newuser
 HISTFILE=~/.zhistory
@@ -40,6 +41,8 @@ export LESS_TERMCAP_us=$'\E[01;36m'
 export LESS=-r
 
 # aliases
+alias w='watch '
+alias grep='grep --color=auto'
 alias vim='nvim'
 alias v='nvim'
 alias k='kubectl'
@@ -53,12 +56,24 @@ alias l='exa -la --git'
 alias sudo='sudo '
 
 
+# helpful functions
+function titl() {
+  echo -en "\033]0;$@\a"
+}
+
+# pw load
+function pw() {
+  sudo cat $HOME/a/$1 | xsel --clipboard
+}
+
 # load git aliases
-source "$(eval echo ~$USER)/dotfiles/zsh/git.zsh"
+source "$HOME/dotfiles/zsh/git.zsh"
 
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 #export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 
+# fzf completion
+source /usr/share/fzf/key-bindings.zsh
 
 # load antibody plugins
 source ~/.zsh_plugins.sh
