@@ -1,0 +1,55 @@
+local map = vim.keymap.set
+
+-- Window navigation
+map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
+map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
+map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+
+-- Resize windows
+map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+
+-- Buffer navigation
+map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
+map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+map("n", "<leader>x", "<cmd>bdelete<cr>", { desc = "Delete buffer" })
+
+-- Better indenting (reselect after indent)
+map("v", "<", "<gv")
+map("v", ">", ">gv")
+
+-- Move lines
+map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move line down" })
+map("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move line up" })
+map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move selection down" })
+map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
+
+-- Clear search highlight
+map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlights" })
+
+-- Save file
+map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+
+-- Toggles
+map("n", "<leader>tw", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
+
+-- Diagnostics
+map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Go to previous diagnostic" })
+map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = "Go to next diagnostic" })
+
+map("n", "<leader>cy", function()
+	local d = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })
+	if #d == 0 then
+		vim.notify("No diagnostics on this line")
+		return
+	end
+	local msgs = {}
+	for _, diag in ipairs(d) do
+		table.insert(msgs, diag.message)
+	end
+	vim.fn.setreg("+", table.concat(msgs, "\n"))
+	vim.notify("Yanked " .. #d .. " diagnostic(s)")
+end, { desc = "Yank diagnostic message" })

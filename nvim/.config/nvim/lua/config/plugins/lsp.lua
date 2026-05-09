@@ -1,0 +1,103 @@
+-- LSP is a language server running in the background that understands the whole project.
+-- Provides: go-to-definition, find references, rename across files, code actions,
+-- diagnostics (errors/warnings), completion. It understands semantics ("this function
+-- takes 2 args and returns an error", "this variable is unused").
+
+-- Keymaps and native completion, activated when an LSP server attaches to a buffer
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("lsp_attach", { clear = true }),
+	callback = function(event)
+		local map = function(keys, func, desc, opts)
+			opts = opts or {}
+			opts.buffer = event.buf
+			opts.desc = "LSP: " .. desc
+			vim.keymap.set("n", keys, func, opts)
+		end
+
+		map("gd", function() Snacks.picker.lsp_definitions() end, "Go to definition")
+		map("gr", function() Snacks.picker.lsp_references() end, "Go to references")
+		map("gI", function() Snacks.picker.lsp_implementations() end, "Go to implementation")
+		map("K", vim.lsp.buf.hover, "Hover documentation")
+		map("<leader>cr", vim.lsp.buf.rename, "Rename")
+		map("<leader>ca", vim.lsp.buf.code_action, "Code action")
+
+		-- enable native completion (C-n/C-p to navigate, C-y to accept)
+		vim.lsp.completion.enable(true, event.data.client_id, event.buf, { autotrigger = true })
+	end,
+})
+
+-- LSP server configurations
+vim.lsp.config("lua_ls", {
+	settings = {
+		Lua = {
+			runtime = { version = "LuaJIT" },
+			workspace = {
+				checkThirdParty = false,
+				library = {
+					"${3rd}/luv/library",
+					unpack(vim.api.nvim_get_runtime_file("", true)),
+				},
+			},
+			completion = {
+				callSnippet = "Replace",
+			},
+			diagnostics = {
+				globals = { "vim" },
+			},
+		},
+	},
+})
+
+vim.lsp.config("gopls", {
+	settings = {
+		gopls = {
+			usePlaceholders = true,
+		},
+	},
+})
+
+vim.lsp.config("cue", {
+	cmd = { "cue", "lsp", "serve" },
+	filetypes = { "cue" },
+	root_markers = { "cue.mod", ".git" },
+})
+
+vim.lsp.config("rust_analyzer", {
+	settings = {
+		["rust-analyzer"] = {
+			check = {
+				command = "clippy",
+			},
+		},
+	},
+})
+
+vim.lsp.config("bashls", {})
+
+vim.lsp.config("jsonls", {
+	filetypes = { "json", "jsonc" },
+})
+
+vim.lsp.config("yamlls", {
+	filetypes = { "yaml", "yaml.docker-compose" },
+	settings = {
+		yaml = {
+			schemas = {
+				["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+				kubernetes = "*.yaml",
+			},
+		},
+	},
+})
+
+vim.lsp.config("helm_ls", {
+	settings = {
+		["helm-ls"] = {
+			yamlls = {
+				path = "yaml-language-server",
+			},
+		},
+	},
+})
+
+vim.lsp.enable({ "lua_ls", "gopls", "rust_analyzer", "cue", "bashls", "jsonls", "yamlls", "helm_ls" })

@@ -1,0 +1,11 @@
+# Claude Code agent state
+**/.claude/
+
+# Machine-local fish config
+fish/.config/fish/local.fish
+
+# Fish universal variables — machine-specific, auto-managed by fish
+fish/.config/fish/fish_variables
+
+# macOS
+.DS_Store
