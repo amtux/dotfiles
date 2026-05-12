@@ -1,0 +1,4 @@
+k9s:
+  ui:
+    # https://raw.githubusercontent.com/catppuccin/k9s/main/dist/catppuccin-mocha-transparent.yaml
+    skin: catppuccin-mocha-transparent

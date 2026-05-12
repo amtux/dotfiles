@@ -1,0 +1,11 @@
+aliases:
+  dp: deployments
+  sec: v1/secrets
+  jo: jobs
+  cr: clusterroles
+  crb: clusterrolebindings
+  ro: roles
+  rb: rolebindings
+  np: networkpolicies
+  ep: v1/endpoints
+  eps: discovery.k8s.io/v1/endpointslices

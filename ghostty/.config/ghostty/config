@@ -25,8 +25,9 @@ keybind = alt+p=reset_font_size
 
 # - management
 # -- tab
-keybind = alt+t=new_tab
-keybind = alt+q=close_tab
+keybind = super+t=new_tab
+keybind = super+w=close_tab
+keybind = super+r=prompt_tab_title
 # -- split
 keybind = alt+shift+h=new_split:left
 keybind = alt+shift+j=new_split:down
@@ -51,6 +52,10 @@ keybind = super+alt+h=resize_split:left,50
 keybind = super+alt+j=resize_split:down,50
 keybind = super+alt+k=resize_split:up,50
 keybind = super+alt+l=resize_split:right,50
+
+# - navigate shell prompts (requires shell integration)
+keybind = alt+up=jump_to_prompt:-1
+keybind = alt+down=jump_to_prompt:1
 
 # - misc
 keybind = shift+enter=text:\n
