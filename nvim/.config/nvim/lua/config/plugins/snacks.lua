@@ -1,6 +1,6 @@
 require("snacks").setup({
   lazygit = {
-    configure = true,
+    configure = false,
   },
   picker = {},
   explorer = {

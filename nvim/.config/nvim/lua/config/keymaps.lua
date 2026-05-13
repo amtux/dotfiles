@@ -33,6 +33,9 @@ map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlights" })
 -- Save file
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
+-- Filename completion (shorthand for <C-x><C-f>, handy for chaining path segments)
+map("i", "<C-f>", "<C-x><C-f>", { desc = "Filename completion" })
+
 -- Toggles
 map("n", "<leader>tw", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
 

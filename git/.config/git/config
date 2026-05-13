@@ -1,0 +1,26 @@
+[include]
+	path = ~/.config/git/delta-catppuccin.gitconfig
+[include]
+	path = ~/.config/git/config.local
+
+[pull]
+	rebase = true
+[branch]
+	autosetuprebase = always
+[push]
+	default = current
+
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+	features = catppuccin-mocha
+[merge]
+	conflictstyle = zdiff3
+[diff]
+	colorMoved = default
+[color]
+	ui = true

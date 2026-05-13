@@ -18,6 +18,7 @@ Uses Neovim's native LSP completion (no plugin).
 - `<C-p>` — previous item
 - `<C-y>` — accept selection
 - `<C-e>` — dismiss popup
+- `<C-f>` — filename completion (shorthand for `<C-x><C-f>`; chain for nested paths)
 
 Unlike blink.cmp or nvim-cmp, native completion does **not** trigger on every keystroke. Press `<C-n>` to trigger manually when typing a symbol name.
 

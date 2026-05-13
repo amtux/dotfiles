@@ -13,7 +13,6 @@ keybind=clear
 keybind = alt+r=reload_config
 keybind = alt+a=select_all
 keybind = super+c=copy_to_clipboard
-keybind = alt+c=copy_to_clipboard
 keybind = super+v=paste_from_clipboard
 keybind = alt+v=paste_from_clipboard
 keybind = super+shift+j=write_screen_file:paste
