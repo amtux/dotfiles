@@ -146,3 +146,4 @@ Run `install-deps.sh` to install all dependencies, or install manually:
 **Treesitter**: `tree-sitter-cli`
 **LSP servers**: `lua-language-server`, `gopls`, `rust-analyzer`, `cue`, `bash-language-server`, `vscode-langservers-extracted` (json), `yaml-language-server`, `helm-ls`
 **Formatters**: `prettier`, `stylua`, `shfmt`, `gofumpt`, `rustfmt`
+**Other**: `jq` (powers the `:Jq` / `:JqPeek` user commands)

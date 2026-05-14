@@ -14,6 +14,7 @@ require brew "https://brew.sh"
 require go "brew install go"
 require npm "brew install node"
 require rustup "https://rustup.rs"
+require jq "brew install jq"
 
 echo "--- tree-sitter-cli ---"
 brew install tree-sitter

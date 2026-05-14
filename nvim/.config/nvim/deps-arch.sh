@@ -15,6 +15,7 @@ require yay "install yay first (see install-arch.sh)"
 require go "sudo pacman -S go"
 require npm "sudo pacman -S npm"
 require rustup "https://rustup.rs"
+require jq "sudo pacman -S jq"
 
 echo "--- tree-sitter-cli ---"
 sudo pacman -S --needed --noconfirm tree-sitter-cli
