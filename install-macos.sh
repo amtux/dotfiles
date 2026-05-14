@@ -34,6 +34,9 @@ brew install \
 echo "=== GUI apps ==="
 brew install --cask ghostty
 
+echo "=== skhd (hotkey daemon) ==="
+brew install koekeishiya/formulae/skhd
+
 if ! command -v rustup >/dev/null 2>&1; then
     echo "=== Rust toolchain ==="
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
@@ -50,7 +53,7 @@ fi
 
 echo "=== Stow packages ==="
 cd "$DOTFILES"
-stow bat fish ghostty git k9s lazygit nvim
+stow bat fish ghostty git k9s lazygit nvim skhd
 
 echo "=== Fisher plugins ==="
 fish -c '
@@ -63,6 +66,9 @@ fish -c '
 
 echo "=== Neovim dependencies ==="
 "$DOTFILES/nvim/.config/nvim/deps-macos.sh"
+
+echo "=== skhd service ==="
+skhd --start-service
 
 echo
 echo "=== Done ==="

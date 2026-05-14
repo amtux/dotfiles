@@ -1,0 +1,5 @@
+# App switcher: Cmd+N focuses (or launches) the Nth app.
+cmd - 1 : open -a "Zen"
+cmd - 2 : open -a "Ghostty"
+cmd - 3 : open -a "Slack"
+cmd - 4 : open -a "Obsidian"
