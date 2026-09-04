@@ -9,5 +9,6 @@ require("which-key").setup({
 		{ "<leader>g", group = "git" },
 		{ "<leader>s", group = "search" },
 		{ "<leader>t", group = "toggle" },
+		{ "gs", group = "surround" },
 	},
 })

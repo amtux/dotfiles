@@ -2,7 +2,7 @@
 vim.opt.number = true -- show line numbers
 vim.opt.relativenumber = true -- relative to cursor, makes motions like 5j easy
 vim.opt.cursorline = true -- highlight current line
-vim.opt.termguicolors = true -- 24-bit color, required for catppuccin
+vim.opt.termguicolors = true -- 24-bit color, required for tokyonight
 vim.opt.signcolumn = "yes" -- always show gutter (git signs, diagnostics), prevents layout shift
 vim.opt.showmode = false -- hide -- INSERT -- , lualine shows it
 vim.opt.wrap = false -- long lines go off-screen, toggle with <leader>tw

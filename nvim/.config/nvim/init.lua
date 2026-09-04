@@ -4,7 +4,7 @@ vim.g.mapleader = " "
 local pack_path = vim.fn.stdpath("data") .. "/site/pack/plugins/start"
 
 local plugins = {
-	["catppuccin"] = { url = "https://github.com/catppuccin/nvim.git" },
+	["tokyonight.nvim"] = { url = "https://github.com/folke/tokyonight.nvim.git" },
 	["nvim-treesitter"] = { url = "https://github.com/nvim-treesitter/nvim-treesitter.git" },
 	["nvim-lspconfig"] = { url = "https://github.com/neovim/nvim-lspconfig.git" },
 	["conform.nvim"] = { url = "https://github.com/stevearc/conform.nvim.git" },
@@ -16,6 +16,8 @@ local plugins = {
 	["gitlinker.nvim"] = { url = "https://github.com/linrongbin16/gitlinker.nvim.git" },
 	["nvim-web-devicons"] = { url = "https://github.com/nvim-tree/nvim-web-devicons.git" },
 	["mini.pairs"] = { url = "https://github.com/echasnovski/mini.pairs.git" },
+	["mini.surround"] = { url = "https://github.com/echasnovski/mini.surround.git" },
+	["flash.nvim"] = { url = "https://github.com/folke/flash.nvim.git" },
 }
 
 local function ensure_plugin(name, spec)

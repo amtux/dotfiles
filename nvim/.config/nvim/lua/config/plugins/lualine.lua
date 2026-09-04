@@ -1,6 +1,6 @@
 require("lualine").setup({
 	options = {
-		theme = "auto", -- picks up the active colorscheme (catppuccin)
+		theme = "auto", -- picks up the active colorscheme (tokyonight)
 		component_separators = "|",
 		section_separators = "",
 	},

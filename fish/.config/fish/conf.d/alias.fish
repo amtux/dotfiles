@@ -1,9 +1,11 @@
-alias cp="command cp -i" # Confirm before overwriting something
+# Written as a function (not `alias`) because `alias cp="command cp -i"`
+# auto-wraps the literal body string instead of `cp`, which breaks tab
+# completion. `--wraps cp` reuses cp's real completions.
+function cp --wraps cp --description "cp with -i (confirm before overwrite)"
+    command cp -i $argv
+end
 alias k="kubectl"
 alias kctx="kubectx"
 alias kns="kubens"
 alias v="nvim"
-alias yt-playlist="yt-dlp -f140 -x --embed-thumbnail --add-metadata"
-alias yt-audio="yt-dlp -f140 --extract-audio --add-metadata --embed-thumbnail"
-alias yt-opus="yt-dlp -f 'bestaudio' --extract-audio --embed-thumbnail --add-metadata"
-alias yt-hq-audio="yt-dlp --extract-audio --audio-quality=0 -f ba --add-metadata --embed-thumbnail"
+alias yt-audio="yt-dlp --extract-audio --audio-quality=0 -f ba --add-metadata --embed-thumbnail"

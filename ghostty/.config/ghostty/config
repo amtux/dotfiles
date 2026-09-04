@@ -1,9 +1,10 @@
 # appearance
-theme = Catppuccin Mocha
+theme = TokyoNight Night
 font-size = 14
 macos-option-as-alt = true
 unfocused-split-opacity=.8
-scrollback-limit = 1_000_000
+scrollback-limit = 50_000_000
+# clipboard-trim-trailing-spaces = false
 
 # keybinds
 # clear all keybinds first
@@ -12,7 +13,7 @@ keybind=clear
 # - generic
 keybind = alt+r=reload_config
 keybind = alt+a=select_all
-keybind = super+c=copy_to_clipboard
+keybind = super+c=copy_to_clipboard:plain
 keybind = super+v=paste_from_clipboard
 keybind = alt+v=paste_from_clipboard
 keybind = super+shift+j=write_screen_file:paste
@@ -58,3 +59,4 @@ keybind = alt+down=jump_to_prompt:1
 
 # - misc
 keybind = shift+enter=text:\n
+keybind = global:super+p=toggle_secure_input

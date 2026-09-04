@@ -124,9 +124,40 @@ Leader key: `<Space>`
 | `zM` | Close all folds |
 | `zR` | Open all folds |
 
+### Jump (flash.nvim)
+| Key | Mode | Action |
+|---|---|---|
+| `s{chars}` | normal / visual / op-pending | Flash jump — type 1–2 chars, then a label letter to jump |
+| `S` | normal / visual / op-pending | Flash treesitter — jump to a syntax node |
+| `r` | op-pending | Remote flash — operate on a target without moving cursor (e.g. `yr` yanks remotely) |
+| `R` | op-pending / visual | Treesitter search |
+| `<C-s>` | command | Toggle flash inside `/` search |
+
+### Surround (mini.surround)
+Prefix is `gs` (so `s` is free for flash).
+
+| Key | Action |
+|---|---|
+| `gsa{motion}{char}` | Add surrounding (e.g. `gsaiw"` wraps inner word in `"`) |
+| `gsa{char}` (visual) | Add surrounding to selection |
+| `gsd{char}` | Delete surrounding |
+| `gsr{old}{new}` | Replace surrounding |
+| `gsf` / `gsF` | Find next / previous surrounding |
+| `gsh` | Highlight surrounding |
+
+### Markdown (in markdown buffers)
+| Key | Action |
+|---|---|
+| `<leader>mb` (visual) | Wrap selection in `**bold**` |
+| `<leader>mi` (visual) | Wrap selection in `_italic_` |
+| `<leader>mc` (visual) | Wrap selection in `` `code` `` |
+| `j` / `k` | Move by visible (wrapped) line |
+
+Markdown buffers also enable: conceal (hide `**`/`_`/`` ` `` markers, reveal on cursor line), word-wrap with break-indent, spellcheck, list-marker continuation on Enter / `o`, and treesitter folding by heading.
+
 ## Plugins
 
-1. catppuccin — theme (mocha, transparent)
+1. tokyonight.nvim — theme (night, transparent)
 2. nvim-treesitter — syntax highlighting, indentation, folding
 3. nvim-lspconfig — LSP server configurations
 4. conform.nvim — format on save
@@ -138,6 +169,8 @@ Leader key: `<Space>`
 10. gitlinker.nvim — GitHub file links
 11. nvim-web-devicons — file icons
 12. mini.pairs — auto-close brackets, quotes, and indent between pairs on enter
+13. mini.surround — add/change/delete surrounding pairs (quotes, brackets, etc.)
+14. flash.nvim — fast cursor jumping with labeled targets
 
 ## External Dependencies
 
