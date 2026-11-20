@@ -37,4 +37,7 @@ sudo npm install -g prettier
 go install mvdan.cc/gofumpt@latest
 rustup component add rustfmt
 
+echo "--- Image rendering (snacks.image) ---"
+sudo pacman -S --needed --noconfirm imagemagick
+
 echo "=== Done ==="

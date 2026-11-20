@@ -15,6 +15,8 @@ local langs = {
 	"yaml",
 	"json",
 	"markdown",
+	"markdown_inline",
+	"regex",
 	"helm",
 }
 

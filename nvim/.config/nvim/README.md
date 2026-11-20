@@ -153,7 +153,7 @@ Prefix is `gs` (so `s` is free for flash).
 | `<leader>mc` (visual) | Wrap selection in `` `code` `` |
 | `j` / `k` | Move by visible (wrapped) line |
 
-Markdown buffers also enable: conceal (hide `**`/`_`/`` ` `` markers, reveal on cursor line), word-wrap with break-indent, spellcheck, list-marker continuation on Enter / `o`, and treesitter folding by heading.
+Markdown buffers also enable: conceal (hide `**`/`_`/`` ` `` markers, reveal on cursor line), word-wrap with break-indent, spellcheck, list-marker continuation on Enter / `o`, and treesitter folding by heading. Images render inline via snacks.image. Mermaid code fences remain plain code; an explicit Markdown image query in the Snacks config disables diagram rendering.
 
 ## Plugins
 
@@ -162,7 +162,7 @@ Markdown buffers also enable: conceal (hide `**`/`_`/`` ` `` markers, reveal on 
 3. nvim-lspconfig — LSP server configurations
 4. conform.nvim — format on save
 5. gitsigns.nvim — git gutter + hunk operations
-6. snacks.nvim — picker, explorer, lazygit, terminal
+6. snacks.nvim — picker, explorer, lazygit, terminal, inline images
 7. lualine.nvim — statusline
 8. bufferline.nvim — buffer tabs
 9. which-key.nvim — keybinding help popup
@@ -179,4 +179,5 @@ Run `install-deps.sh` to install all dependencies, or install manually:
 **Treesitter**: `tree-sitter-cli`
 **LSP servers**: `lua-language-server`, `gopls`, `rust-analyzer`, `cue`, `bash-language-server`, `vscode-langservers-extracted` (json), `yaml-language-server`, `helm-ls`
 **Formatters**: `prettier`, `stylua`, `shfmt`, `gofumpt`, `rustfmt`
+**Image rendering**: `imagemagick` — used by snacks.image for inline images in markdown (requires a kitty-graphics terminal, e.g. Ghostty). No browser or diagram-rendering CLI is required.
 **Other**: `jq` (powers the `:Jq` / `:JqPeek` user commands)

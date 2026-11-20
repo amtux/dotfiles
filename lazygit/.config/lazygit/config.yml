@@ -27,11 +27,11 @@ gui:
       - "#f38ba8"
     defaultFgColor:
       - "#cdd6f4"
-  authorColors:
-    "*": "#b4befe"
+    authorColors:
+      "*": "#b4befe"
 os:
   editPreset: nvim-remote
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --paging=never --color-only
+      command: delta --paging=never --color-only

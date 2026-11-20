@@ -1,13 +1,29 @@
+-- Keep math fences, but do not capture Mermaid fences for image conversion.
+-- An explicit query is needed because Snacks appends its diagram query.
+vim.treesitter.query.set("markdown", "images", [[
+(fenced_code_block
+  (info_string (language) @lang)
+  (#eq? @lang "math")
+  (code_fence_content) @image.content
+  (#set! injection.language "latex")
+  (#set! image.ext "math.tex")
+) @image
+]])
+
 require("snacks").setup({
   lazygit = {
     configure = false,
   },
-  picker = {},
+  picker = {
+    ui_select = false,
+  },
   explorer = {
     hidden = true,
   },
   terminal = {},
   scroll = { enabled = true },
+  -- Inline images; the explicit query above excludes diagram rendering.
+  image = { enabled = true },
 })
 
 local map = vim.keymap.set

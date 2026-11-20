@@ -1,5 +1,5 @@
-# App switcher: Cmd+N focuses (or launches) the Nth app.
-cmd - 1 : open -a "Zen"
-cmd - 2 : open -a "Ghostty"
-cmd - 3 : open -a "Slack"
-cmd - 4 : open -a "HelixNotes"
+# App switcher: Alt+N focuses (or launches) the Nth app.
+alt - 1 : open -a "Zen"
+alt - 2 : open -a "Rex Beta"
+alt - 3 : open -a "Slack"
+alt - 4 : open -a "HelixNotes"

@@ -1,6 +1,6 @@
 # appearance
 theme = TokyoNight Night
-font-size = 14
+font-size = 14.5
 macos-option-as-alt = true
 unfocused-split-opacity=.8
 scrollback-limit = 50_000_000

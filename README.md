@@ -20,7 +20,8 @@ Or manually, if you only want the symlinks:
 ```sh
 brew install stow  # or: sudo pacman -S stow
 cd ~/dotfiles
-stow bat fish ghostty git k9s lazygit nvim skhd
+stow agent-skills bat fish ghostty git k9s lazygit nvim skhd
+stow --no-folding --target="$HOME" pi
 ```
 
 Install packages selectively (`stow fish`) if you only want one.
@@ -29,6 +30,7 @@ Install packages selectively (`stow fish`) if you only want one.
 
 | Package | Target |
 |---|---|
+| `agent-skills` | `~/.agents/skills`, `~/.claude/skills` (one link per skill; see [agent-skills/README.md](agent-skills/README.md)) |
 | `bat`     | `~/.config/bat` |
 | `fish`    | `~/.config/fish` |
 | `ghostty` | `~/.config/ghostty` |
@@ -37,6 +39,7 @@ Install packages selectively (`stow fish`) if you only want one.
 | `lazygit` | `~/.config/lazygit` |
 | `nvim`    | `~/.config/nvim` |
 | `skhd`    | `~/.config/skhd` |
+| `pi`      | Individual files under `~/.pi/agent/extensions` and `~/.pi/agent/themes` (use `--no-folding`; see [pi/README.md](pi/README.md)) |
 
 ## Machine-local files
 
@@ -46,3 +49,4 @@ Copy them manually when moving to a new machine:
 - `fish/.config/fish/local.fish` — machine-local fish config
 - `git/.config/git/config.local` — personal identity + work routing
 - `git/.config/git/config.work` — work-specific config
+- Pi authentication, settings, model config, sessions, and caches remain outside the repo; only extensions/themes are managed.

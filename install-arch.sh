@@ -57,7 +57,9 @@ fi
 
 echo "=== Stow packages ==="
 cd "$DOTFILES"
-stow bat fish ghostty git k9s lazygit nvim
+stow agent-skills bat fish ghostty git k9s lazygit nvim
+# Never fold ~/.pi into the repo: credentials and sessions must stay local.
+stow --no-folding --target="$HOME" pi
 
 echo "=== Fisher plugins ==="
 fish -c '

@@ -1,5 +1,6 @@
 # Claude Code agent state
 **/.claude/
+!agent-skills/.claude/
 
 # Machine-local fish config
 fish/.config/fish/local.fish
@@ -10,6 +11,17 @@ fish/.config/fish/fish_variables
 # Machine-local git config (identity + work routing)
 git/.config/git/config.local
 git/.config/git/config.work
+
+# Pi: allow only public extension/theme resources, never agent state
+/pi/.pi/*
+!/pi/.pi/agent/
+/pi/.pi/agent/*
+!/pi/.pi/agent/extensions/
+!/pi/.pi/agent/themes/
+/pi/**/node_modules/
+/pi/**/.env
+/pi/**/.env.*
+/pi/**/*.bak
 
 # macOS
 .DS_Store
