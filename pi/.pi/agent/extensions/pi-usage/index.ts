@@ -1,4 +1,5 @@
 import type { ExtensionAPI } from '@earendil-works/pi-coding-agent';
+import { AnthropicUsageError, fetchAnthropicUsage } from './anthropic.ts';
 import { fetchOpenAIUsage, UsageError } from './openai.ts';
 
 export default function (pi: ExtensionAPI) {
@@ -17,6 +18,22 @@ export default function (pi: ExtensionAPI) {
       } catch (error) {
         ctx.ui.notify(error instanceof UsageError ? error.message :
           'Could not check OpenAI usage. Try /login or retry.', 'error');
+      }
+    },
+  });
+
+  pi.registerCommand('usage-anthropic-sub', {
+    description: 'Show Claude subscription limits and reset times',
+    handler: async (_args, ctx) => {
+      if (!ctx.hasUI) return;
+      try {
+        ctx.ui.notify('Fetching Claude subscription usage…', 'info');
+        const auth = await ctx.modelRegistry.getProviderAuth('anthropic');
+        const report = await fetchAnthropicUsage(auth?.auth.apiKey);
+        await ctx.ui.select(report, ['Close']);
+      } catch (error) {
+        ctx.ui.notify(error instanceof AnthropicUsageError ? error.message :
+          'Could not check Anthropic usage. Try /login or retry.', 'error');
       }
     },
   });

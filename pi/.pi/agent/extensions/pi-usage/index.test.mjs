@@ -19,8 +19,27 @@ const token = 'test.' + Buffer.from(JSON.stringify({
   'https://api.openai.com/auth': { chatgpt_account_id: 'test-account' },
 })).toString('base64url') + '.signature';
 
-test('registers only the implemented provider command', () => {
-  assert.deepEqual([...setup().commands.keys()], ['usage-openai-sub']);
+test('shows Claude subscription usage using the Anthropic login regardless of current model', async t => {
+  const access = 'sk-ant-oat-test';
+  const fetch = t.mock.method(globalThis, 'fetch', async (url, options) => {
+    assert.equal(url, 'https://api.anthropic.com/api/oauth/usage');
+    assert.equal(options.headers.Authorization, `Bearer ${access}`);
+    assert.equal(options.redirect, 'error');
+    return Response.json({ five_hour: { utilization: 20, resets_at: '2099-01-01T00:00:00Z' }, seven_day: null });
+  });
+  const f = setup({ auth: { apiKey: access } });
+  await f.commands.get('usage-anthropic-sub')?.handler('', f.ctx);
+  assert.deepEqual(f.requested, ['anthropic']);
+  assert.equal(fetch.mock.callCount(), 1);
+  assert.match(f.dialogs[0][0], /5-hour: 80% left.*\nWeekly: unavailable/);
+});
+
+test('does not send an Anthropic API key to the subscription endpoint', async t => {
+  const fetch = t.mock.method(globalThis, 'fetch', async () => assert.fail('must not fetch'));
+  const f = setup({ auth: { apiKey: 'sk-ant-api-test' } });
+  await f.commands.get('usage-anthropic-sub')?.handler('', f.ctx);
+  assert.equal(fetch.mock.callCount(), 0);
+  assert.match(f.notices.at(-1)?.[0] ?? '', /\/login/);
 });
 
 test('uses the named provider, performs one request on demand, and shows a local dialog', async t => {
