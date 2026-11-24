@@ -19,7 +19,7 @@ Other extensions' status messages are preserved on their own status row if prese
 - `1.2s` (shown after the first streamed content arrives): delay until the first nonempty text, thinking, or tool-argument delta. Not the time to the first answer text specifically.
 - `~42.0 tok/s`: live running average since the first delta, estimated as streamed UTF-16 characters / 4. It is deliberately approximate, especially for non-English text and code. Updated every 250 ms while streaming.
 - `42.0 tok/s`: final provider-reported output tokens / seconds from first delta to message completion. Remains visible until the next request. If usage is missing, the estimate retains its `~`.
-- Intervals shorter than 100 ms show `— tok/s` to avoid meaningless spikes. Errors/aborts are labeled rather than presented as successful averages.
+- Intervals shorter than 100 ms show `— tok/s` to avoid meaningless spikes. If the request has finished and the provider reported output tokens, the count is shown instead (`13 tok`). This is common with Anthropic, which often delivers short replies in one or two chunks after a hidden thinking phase. Errors/aborts are labeled rather than presented as successful averages.
 - Provider-reported output counts can include hidden reasoning, while the live estimate only sees streamed content. Thus the final number may jump, and cross-provider comparisons are not exact benchmarks. Automatic transport retries may also affect timing.
 
 No network calls, tokenizers, settings menus, or persistent state are added. Reloading or switching sessions starts with no speed history.

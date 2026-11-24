@@ -34,8 +34,9 @@ export class SpeedMeter {
       return style(this.ended === undefined ? `waiting ${((now - this.requested) / 1000).toFixed(1)}s` : '— tok/s', false);
     }
     const seconds = ((this.ended ?? now) - this.first) / 1000;
-    if (seconds < 0.1) return style('— tok/s', false) + first;
     const exact = this.ended !== undefined && this.output > 0;
+    // Burst-delivered replies (e.g. Anthropic) finish too fast for a rate; keep the reported count.
+    if (seconds < 0.1) return style(exact ? `${this.output} tok` : '— tok/s', false) + first;
     const tokens = exact ? this.output : this.characters / 4;
     const rate = tokens / seconds;
     return style(`${exact ? '' : '~'}${rate.toFixed(1)} tok/s`, rate < 15) + first;

@@ -55,6 +55,15 @@ test('first chunk alone has no measurable generation interval', () => {
   assert.equal(m.label(1000), '— tok/s · 1.0s');
 });
 
+test('burst-delivered reply shows reported token count instead of a rate', () => {
+  const m = new SpeedMeter();
+  m.start(0);
+  m.delta('2 + 2 equals', 1900);
+  m.delta(' 4.', 1950);
+  m.finish(13, 1975);
+  assert.equal(m.label(1975), '13 tok · 1.9s');
+});
+
 test('final speed uses reported tokens, not the live estimate, and freezes', () => {
   const m = new SpeedMeter();
   m.start(0);
