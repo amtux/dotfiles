@@ -26,7 +26,8 @@ No network calls, tokenizers, settings menus, or persistent state are added. Rel
 
 ## Tests
 
-Requires a recent Node with TypeScript stripping (Node 26 is installed) and the globally installed Pi package:
+Requires a recent Node with TypeScript stripping (Node 26 is installed) and Pi's managed install
+(`~/.pi/agent/install`, active release read from `current-version`):
 
 ```sh
 node --test ~/.pi/agent/extensions/pi-statusbar/*.test.mjs

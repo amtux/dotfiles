@@ -1,12 +1,16 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { execFileSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
+import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 // Use the installed host's loader/dependencies, just as Pi loads extensions.
-const root = join(execFileSync('npm', ['root', '-g'], { encoding: 'utf8' }).trim(), '@earendil-works/pi-coding-agent');
+// Pi's managed install records the active release in install/current-version.
+const install = join(process.env.PI_CODING_AGENT_DIR ?? join(homedir(), '.pi/agent'), 'install');
+const version = readFileSync(join(install, 'current-version'), 'utf8').trim();
+const root = join(install, 'releases', version, 'node_modules/@earendil-works/pi-coding-agent');
 const require = createRequire(join(root, 'package.json'));
 const { createJiti } = require('jiti');
 const jiti = createJiti(import.meta.url, { alias: {
